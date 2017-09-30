@@ -24,7 +24,6 @@ class TypeTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        onCreateData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,5 +56,20 @@ class TypeTableViewController: UITableViewController {
 
 
         return cell
+    }
+    
+        //点击cell方法
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //获取选中行的数据
+        var typeItem = todoModel.typeList[indexPath.row]
+        //视图跳转
+        self.tabBarController?.selectedIndex = 1
+        //获取添加视图的导航控制器
+        let navigation = self.tabBarController?.viewControllers?[1] as! UINavigationController
+        
+        //获取添加视图
+        let typeDetail = navigation.viewControllers.first as? TypeDetailTableViewController
+        typeDetail?.onEditType(item: typeItem)
+
     }
 }
