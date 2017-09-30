@@ -72,4 +72,19 @@ class TypeTableViewController: UITableViewController {
         typeDetail?.onEditType(item: typeItem)
 
     }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            // Delete the row from the data source
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//        } else if editingStyle == .insert {
+//            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+//        }    
+        //删除数据
+        todoModel.typeList.remove(at: indexPath.row)
+        //删除数据的位置标识组
+        let indexPaths = [indexPath]
+        //通知视图删除的数据，同时显示动画
+        tableView.deleteRows(at: indexPaths, with: UITableViewRowAnimation.automatic)
+    }
 }
