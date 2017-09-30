@@ -43,6 +43,19 @@ class TypeDetailTableViewController: UITableViewController ,ProtocolIconView,UIT
         
     }
     
+    @IBOutlet weak var doneButton: UIBarButtonItem!
+    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var iconImageView: UIImageView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        isLoad = true
+    }
+    //定义一个TypeItem
+    var typeItem:TypeItem = TypeItem(name: "")
+    //设置状态，判断是添加分类还是编辑分类
+    var isAdd:Bool = true
+    
     func onAddType(){
         //将表示设为添加任务分类状态
         isAdd = true
@@ -75,18 +88,6 @@ class TypeDetailTableViewController: UITableViewController ,ProtocolIconView,UIT
         self.textField?.text = typeItem.name
     }
     
-    @IBOutlet weak var doneButton: UIBarButtonItem!
-    @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var iconImageView: UIImageView!
-    
-    //设置状态，判断是添加分类还是编辑分类
-    var isAdd:Bool = true
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        isLoad = true
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
