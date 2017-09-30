@@ -31,11 +31,18 @@ class TypeDetailTableViewController: UITableViewController ,ProtocolIconView,UIT
     }
     
     func onAddType(){
-        typeList.append(type)
+        //将表示设为添加任务分类状态
+        isAdd = true
     }
-    
+    //编辑分类方法
+    func onEditType(item:TypeItem){
+        isAdd = false
+       
+    }
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var iconImageView: UIImageView!
     
+    //设置状态，判断是添加分类还是编辑分类
+    var isAdd:Bool = true
 }
