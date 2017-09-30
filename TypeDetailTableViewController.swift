@@ -87,7 +87,21 @@ class TypeDetailTableViewController: UITableViewController ,ProtocolIconView,UIT
     func onUpdate(){
         self.textField?.text = typeItem.name
     }
-    
+    //实现protocolIconView协议中的iconPicker方法
+    //设置图标
+    func iconPicker(didPickIcon iconName: String) {
+        typeItem.icon = iconName
+        iconImageView.image = UIImage(named: iconName)
+        //关闭选择图标界面
+        self.navigationController?.popViewController(animated: true)
+    }
+    //检测界面切换
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //获取切换目标
+        let controller = segue.destination as! IconTableViewController
+        //设置代理
+        controller.delegate = self
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
