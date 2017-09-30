@@ -10,17 +10,17 @@ import UIKit
 
 class TypeTableViewController: UITableViewController {
     
-    //生成一个变量用来存储任务分类的数据、模拟数据
-    var typeList = [TypeItem]()
-    
-    //创建模拟数据
-    func onCreateData(){
-        for i in 1...10{
-            let name = "任务：\(i)"
-            let type =  TypeItem(name:name)
-            typeList.append(type)
-        }
-    }
+//    //生成一个变量用来存储任务分类的数据、模拟数据
+//    var typeList = [TypeItem]()
+//    
+//    //创建模拟数据
+//    func onCreateData(){
+//        for i in 1...10{
+//            let name = "任务：\(i)"
+//            let type =  TypeItem(name:name)
+//            typeList.append(type)
+//        }
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
