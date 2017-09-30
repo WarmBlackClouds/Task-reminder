@@ -8,6 +8,15 @@
 
 import UIKit
 
+//扩展NSRange,让swift的string能使用stringByReplacingCharactersInRange
+extension NSRange{
+    func toRange(string:String) -> Range<String.Index>{
+        
+        let startIndex = string.index(string.startIndex, offsetBy: self.location)
+        let endIndex = string.index(startIndex, offsetBy: self.length)
+        return startIndex..<endIndex
+    }
+}
 
 class TypeDetailTableViewController: UITableViewController ,ProtocolIconView,UITextFieldDelegate{
 
@@ -49,7 +58,10 @@ class TypeDetailTableViewController: UITableViewController ,ProtocolIconView,UIT
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        isLoad = true
+        //设置文本框代理
+        textField.delegate = self
+//        isLoad = true
+        onUpdate()
     }
     //定义一个TypeItem
     var typeItem:TypeItem = TypeItem(name: "")
@@ -101,6 +113,25 @@ class TypeDetailTableViewController: UITableViewController ,ProtocolIconView,UIT
         let controller = segue.destination as! IconTableViewController
         //设置代理
         controller.delegate = self
+    }
+    //界面加载结束后会执行的方法
+    override func viewWillAppear(_ animated: Bool) {
+        onUpdate()
+        //文本框获取焦点
+        textField.becomeFirstResponder()
+        if isAdd{
+            doneButton.isEnabled = false
+        }else{
+            doneButton.isEnabled = true
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        //获得文本框最新的文本
+        let newText = textField.text?.replacingCharacters(in: range.toRange(string: textField.text!), with: string)
+        //通过计算文本框的字符数来决定done按钮是否激活
+        doneButton.isEnabled = (newText?.characters.count)! > 0
+        return true
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
