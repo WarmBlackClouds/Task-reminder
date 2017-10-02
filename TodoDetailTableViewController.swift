@@ -33,6 +33,7 @@ class TodoDetailTableViewController: UITableViewController,ProtocolLevel,UITextF
         }
         self.presentingViewController?.dismiss(animated: true, completion: nil)
         todoModel.saveData()
+        todoItem.scheduleNotification()
     }
     @IBAction func cancel(_ sender: Any) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
