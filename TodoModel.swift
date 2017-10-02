@@ -18,6 +18,8 @@ class TodoModel: NSObject{
         super.init()
         //初始化模拟数据
         onCreateData()
+        print("沙盒文件夹路径：\(documentsDirectory())")
+        print("数据文件路径：\(dataFilePath())")
     }
     
     //创建模拟数据
@@ -39,6 +41,32 @@ class TodoModel: NSObject{
         return 0
     }
     
+    
+    //方法1：documentsDirectory获取沙盒路径
+    func documentsDirectory() -> String{
+        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentationDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+        let documentsDirectory:String = paths.first!
+        return documentsDirectory
+    }
+    
+    //方法2：dataFilePath获取数据文件地址
+    func dataFilePath() -> String{
+        return self.documentsDirectory().appending("todo.plist")
+    }
+    
+    //保存数据
+    func saveData(){
+        let data = NSMutableData()
+        //申明一个归档处理对象
+        let archiver = NSKeyedArchiver(forWritingWith: data)
+        //将lists以对应Checklist关键字进行编码
+        archiver.encode(typeList, forKey: "todolist")
+        //编码结束
+        archiver.finishEncoding()
+        //数据写入
+        data.write(toFile: dataFilePath(), atomically: true)
+        
+    }
 }
 
 //创建全局数据
