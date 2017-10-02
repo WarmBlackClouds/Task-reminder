@@ -55,6 +55,20 @@ class TypeTableViewController: UITableViewController {
         cell.imageView!.image = UIImage(named: typeItem.icon!)
 
 
+        //返回有多少个任务代办需要提醒
+        let count = typeItem.countUncheckedItems()
+        //根据不同的情况显示不同的副标题
+        if typeItem.items.count == 0{
+            //没有添加任务
+            cell.detailTextLabel?.text = "还没添加任务"
+        }else{
+            if count == 0 {
+                cell.detailTextLabel?.text = "全部做完了"
+            }else{
+                cell.detailTextLabel?.text = "还有\(count)个任务要做"
+            }
+        }
+
         return cell
     }
     
@@ -134,5 +148,11 @@ class TypeTableViewController: UITableViewController {
         editAction.backgroundColor = UIColor.lightGray//亮灰
         deleteAction.backgroundColor = UIColor.red//红
         return [deleteAction,editAction]
+    }
+    
+    //显示视图的时候重新加载数据
+    override func viewWillAppear(_ animated: Bool) {
+        //重新加载数据
+        self.tableView.reloadData()
     }
 }
