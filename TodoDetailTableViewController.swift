@@ -53,6 +53,10 @@ class TodoDetailTableViewController: UITableViewController,ProtocolLevel,UITextF
 
         if isAdd{
             todoItem.dueDate = NSDate()
+        }else{
+            self.title = "编辑任务"
+            textField.text = todoItem.text
+            switchControl.isOn = todoItem.shouldRemind!
         }
         upDateDueDateLabel()
     }
