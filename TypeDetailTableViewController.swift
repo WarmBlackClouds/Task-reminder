@@ -49,6 +49,8 @@ class TypeDetailTableViewController: UITableViewController ,ProtocolIconView,UIT
         //还原成添加状态
         onAddType()
 
+        //保存数据
+        todoModel.saveData()
         
     }
     
