@@ -112,7 +112,14 @@ class TodoListTableViewController: UITableViewController ,ProtocolTodoDetail{
         let segueStr = "\(segue.identifier!)"
         if segueStr == "AddItem"{
             controller.isAdd = true
+        }else if segueStr == "EditItem"{
+            //获取indexPath
+            let indexPath = self.tableView.indexPath(for: sender! as! UITableViewCell)
+            //将要编辑的Model传给新界面
+            controller.todoItem = (todolist?.items[indexPath!.row])!
+            controller.isAdd = false
         }
+
     }
     
     //显示视图的时候重新加载数据
