@@ -83,9 +83,23 @@ class TodoDetailTableViewController: UITableViewController,ProtocolLevel,UITextF
         
         //显示级别
         labLevel.text = LevelItem.onGetTitle(level: todoItem.level!)
+        //任务名称文本框获得焦点
+        textField.becomeFirstResponder()
+        //设置textField的代理
+        textField.delegate = self
+        //当状态是添加任务时，确认按钮默认不激活
+        doneButton.isEnabled = false
         upDateDueDateLabel()
     }
 
+    //文本框内容残生变化的响应方法
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        //获得文本框最新的文本
+        let newText = textField.text?.replacingCharacters(in: range.toRange(string: textField.text!), with: string)
+        //通过计算文本框的字符数来决定done按钮是否激活
+        doneButton.isEnabled = (newText?.characters.count)! > 0
+        return true
+    }
     
     //更新显示时间
     func upDateDueDateLabel(){
