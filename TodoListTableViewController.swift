@@ -12,7 +12,15 @@ class TodoListTableViewController: UITableViewController ,ProtocolTodoDetail{
     
     //tableView的数据
     var todolist:TypeItem?
-    
+    //响应ProtocolTodoDetail协议中的两个方法
+    func addItem(item: TodoItem) {
+        todolist?.items.append(item)
+        
+    }
+    func editItem() {
+        self.tableView.reloadData()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -91,6 +99,20 @@ class TodoListTableViewController: UITableViewController ,ProtocolTodoDetail{
     //改变滑动删除显示的删除文字
     override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "删除"
+    }
+    
+    //界面跳转时
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //获取导航控制器
+        let navigationController = segue.destination as! UINavigationController
+        //获取切换目标
+        let controller = navigationController.topViewController as! TodoDetailTableViewController
+        //设置代理
+        controller.delegate = self
+        let segueStr = "\(segue.identifier!)"
+        if segueStr == "AddItem"{
+            controller.isAdd = true
+        }
     }
     
     //显示视图的时候重新加载数据
