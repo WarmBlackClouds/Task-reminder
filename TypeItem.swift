@@ -22,4 +22,14 @@ class TypeItem: NSObject, NSCoding{
         self.name = name
     }
     
+    //计算该类任务 还有多少item没有勾选，也就是还没办需要提醒
+    func countUncheckedItems() -> Int{
+        var count = 0
+        for item in items{
+            if item.checked != true{
+                count += 1
+            }
+        }
+        return count
+    }
 }
