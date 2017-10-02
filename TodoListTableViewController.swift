@@ -34,10 +34,46 @@ class TodoListTableViewController: UITableViewController ,ProtocolTodoDetail{
         let item = todolist?.items[indexPath.row]
         //获取cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath)
-
+        //获取label
+        let label = cell.viewWithTag(1000) as! UILabel
+        //设置label内容
+        label.text = (item?.text)!
+            + "  ：\(LevelItem.onGetTitle(level: (item?.level)!))"
+        //设置cell的勾选状态
+        onCheckmark(cell: cell,item:item!)
         //设置标题内容
-        cell.textLabel?.text = item?.text
+//        cell.textLabel?.text = item?.text
 
         return cell
     }
+    
+    //设置check勾选
+    func onCheckmark(cell:UITableViewCell,item:TodoItem){
+        //根据Tag获取cell中的checkbox
+        let check = cell.viewWithTag(1002) as! UIImageView
+        //通过item中的checked属性来控制勾号是否显示
+        if item.checked!{
+            check.image = UIImage(named:"little_animal_07")
+            
+        }else{
+            check.image = UIImage(named:"little_animal_08")
+
+        }
+        
+        todoModel.saveData()
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //获取row数据
+        let item = todolist?.items[indexPath.row]
+        //check属性取反
+        item?.onChangeChecked()
+        //设置cell勾选框
+        let cell = tableView.cellForRow(at: indexPath)
+        onCheckmark(cell: cell!, item: item!)
+        //取消选中状态
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        }
+
 }
