@@ -76,4 +76,26 @@ class TodoListTableViewController: UITableViewController ,ProtocolTodoDetail{
         
         }
 
+    
+    //滑动删除
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        //删除数据
+        todolist?.items.remove(at: indexPath.row)
+        let indexPaths = [indexPath]
+        //通知视图删除的数据。同时显示动画
+        tableView.deleteRows(at: indexPaths, with: UITableViewRowAnimation.automatic)
+        
+        todoModel.saveData()
+    }
+    
+    //改变滑动删除显示的删除文字
+    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "删除"
+    }
+    
+    //显示视图的时候重新加载数据
+    override func viewWillAppear(_ animated: Bool) {
+        //重新加载数据
+        self.tableView.reloadData()
+    }
 }
