@@ -132,7 +132,7 @@ class TypeTableViewController: UITableViewController {
             
             //视图跳转
             self.tabBarController?.selectedIndex = 1
-            
+            todoModel.saveData()
             
         }
         
