@@ -21,7 +21,19 @@ class TypeItem: NSObject, NSCoding{
         super.init()
         self.name = name
     }
+    //从nsobject解析回来
+    required init(coder aDecoder:NSCoder){
+        self.name = aDecoder.decodeObject(forKey: "Name") as? String
+        self.items = (aDecoder.decodeObject(forKey: "Items") as? [TodoItem])!
+        self.icon = aDecoder.decodeObject(forKey: "Icon") as? String
+    }
     
+    //编码object
+    func encode(with aCoder:NSCoder) {
+        aCoder.encode(name, forKey: "Name")
+        aCoder.encode(items, forKey: "Items")
+        aCoder.encode(icon, forKey: "Icon")
+    }
     //计算该类任务 还有多少item没有勾选，也就是还没办需要提醒
     func countUncheckedItems() -> Int{
         var count = 0
