@@ -61,7 +61,7 @@ class TypeDetailTableViewController: UITableViewController ,ProtocolIconView,UIT
         //设置文本框代理
         textField.delegate = self
 //        isLoad = true
-        onUpdate()
+//        onUpdate()
     }
     //定义一个TypeItem
     var typeItem:TypeItem = TypeItem(name: "")
@@ -76,7 +76,7 @@ class TypeDetailTableViewController: UITableViewController ,ProtocolIconView,UIT
         //设置视图标题
         self.title = "添加"
         //执行更新方法
-        onUpdate()
+  //      onUpdate()
     }
     
     //判断视图是否加载过
@@ -91,9 +91,9 @@ class TypeDetailTableViewController: UITableViewController ,ProtocolIconView,UIT
         //接收传送过来的分类数据
         self.typeItem = item
         //如果视图没加载过则放入viewdidLoad进行
-        if isLoad{
-            onUpdate()
-       }
+//        if isLoad{
+//            onUpdate()
+ //      }
     }
     
     func onUpdate(){
