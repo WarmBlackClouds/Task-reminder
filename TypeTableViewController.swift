@@ -61,6 +61,11 @@ class TypeTableViewController: UITableViewController {
         //点击cell方法
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //获取选中行的数据
+        let type = todoModel.typeList[indexPath.row]
+        //可以将任何东西放入sender，对应prepareforsegue中的sender
+        self.performSegue(withIdentifier: "showTodoList", sender: type)
+
+        //获取选中行的数据
 //        var typeItem = todoModel.typeList[indexPath.row]
 //        //视图跳转
 //        self.tabBarController?.selectedIndex = 1
@@ -72,6 +77,18 @@ class TypeTableViewController: UITableViewController {
 //        typeDetail?.onEditType(item: typeItem)
 
     }
+    
+    
+    //segue切换，传参
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //获取导航控制器
+        let navigationController = segue.destination as! UINavigationController
+        //获取切换目标
+        let controller = navigationController.topViewController as! TodoListTableViewController
+        //给目标传参数
+        controller.todolist = (sender as? TypeItem)!
+    }
+
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 //        if editingStyle == .delete {
