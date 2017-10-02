@@ -32,11 +32,11 @@ class TodoDetailTableViewController: UITableViewController,ProtocolLevel,UITextF
             delegate?.editItem()
         }
         self.presentingViewController?.dismiss(animated: true, completion: nil)
-        
+        todoModel.saveData()
     }
     @IBAction func cancel(_ sender: Any) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
-        
+        todoModel.saveData()
     }
     
     //添加还是编辑状态
