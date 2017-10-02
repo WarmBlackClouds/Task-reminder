@@ -51,6 +51,25 @@ class TodoDetailTableViewController: UITableViewController,ProtocolLevel,UITextF
     //声明一个变量来记录日期选择器的显示状态
     var datePickerVisible:Bool = false
     
+    //ProtocolLevel协议所要实现的方法
+    func onGetLevel(levelItem: LevelItem) {
+        //更新重要级别的文本标签
+        labLevel.text = levelItem.title
+        //更新todoItem中的级别
+        todoItem.level = levelItem.level
+        //关闭选择级别界面
+        self.navigationController?.popViewController(animated: true)
+    }
+    //连线跳转
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //获取跳转目标
+        let controller = segue.destination as! TodoLevelTableViewController
+        //设置代理
+        controller.delegate = self
+        //传参并生成数据源
+        controller.onSetCheckMark(level: self.todoItem.level!)
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -61,6 +80,9 @@ class TodoDetailTableViewController: UITableViewController,ProtocolLevel,UITextF
             textField.text = todoItem.text
             switchControl.isOn = todoItem.shouldRemind!
         }
+        
+        //显示级别
+        labLevel.text = LevelItem.onGetTitle(level: todoItem.level!)
         upDateDueDateLabel()
     }
 
