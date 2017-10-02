@@ -13,7 +13,8 @@ class TypeItem: NSObject, NSCoding{
     var name :String? = ""
     //分类图标
     var icon: String? = "little_animal_06"
-    
+    //任务清单数据，数组变量用来存储数据
+    var items = [TodoItem]()
     
     //构造方法
     init(name:String) {
